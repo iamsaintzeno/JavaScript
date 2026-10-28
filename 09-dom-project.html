@@ -2,10 +2,71 @@
 <html>
     <head>
         <title>DOM-Projects</title>
+        <style>
+            .Youtube-section ,.game-section, .Amazon-section {
+                margin-bottom: 50px;
+            }
+        </style>
     </head>
     <body>
-        <script>
+        <div class="Youtube-section">
+            <p>Youtube Subscribe Button</p>
+            <button class="js-button" onclick="
+                Subscribe();
+            ">Subscribe</button>
+        </div>
+
+        <div class="game-section">
+            <p>Rock Paper Scissor Game</p>
+        </div>
+
+        <div class="Amazon-section">
+            <p>Amazon Shipping Calculator</p>
+            <p>Order Under $40 += $10 Shipping.</p>
+            <p>Order over $40 = Free Shipping.</p>
         
+            <input class="js-cost-input" placeholder="Cost of Order" onkeydown="
+                        handleCostKeyDown(event);
+                    ">
+            <button onclick="
+                    calcTotal() ;
+                ">Calculate</button>
+        
+            <p class="js-total-cost"></p>
+        </div>
+        <script>
+
+            String(25);
+            console.log('25'-5);
+            console.log('25'+5);
+
+           function handleCostKeyDown(event){
+            if(event.key === 'Enter') {
+                    calcTotal() ;
+                }
+           } 
+
+            function calcTotal(){
+                const inputElement = document.querySelector('.js-cost-input') ;
+                let cost = Number(inputElement.value) ;
+                
+
+                if(cost < 40) {
+                    cost = cost + 10 ;
+                }
+                document.querySelector('.js-total-cost').innerHTML = `$${cost}` ;
+            }
+            
+            function Subscribe(){
+                const buttonEle = (document.querySelector('.js-button'));
+
+                if(buttonEle.innerText === 'Subscribe'){
+                    buttonEle.innerHTML = 'Subscribed';
+                }
+                else {
+                buttonEle.innerHTML = 'Subscribe' ;
+                }
+        }
         </script>
     </body>
 </html>
