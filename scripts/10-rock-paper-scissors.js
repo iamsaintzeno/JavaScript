@@ -1,0 +1,114 @@
+             let score = JSON.parse(localStorage.getItem('score')) ||
+            {
+                win : 0 ,
+                losses : 0 ,
+                tie : 0 
+            };
+
+            
+
+            updateScore();
+
+            /*
+            if(!score){
+                score = {
+                win : 0 ,
+                losses : 0 ,
+                tie : 0 
+                };
+            }
+            */
+
+
+            function resetScore(){
+                score.win = 0 ;
+                score.losses = 0 ;
+                score.tie = 0 ;
+                localStorage.removeItem('score');
+                updateScore();
+            }
+
+
+            function playGame(move){
+                const computerMove = pickCompMove(); 
+                let result = '';
+                if(move==='scissors'){
+                    if(computerMove==='scissors'){
+                        result = 'tie' ;
+                    } else if(computerMove==='paper'){
+                        result = 'win';
+                    }
+                    else if(computerMove==='rock'){
+                        result = 'lose' ;
+                    }
+                }
+                else if(move==='paper'){
+                    if(computerMove==='rock'){
+                        result = 'win' ;
+                    } else if(computerMove==='paper'){
+                        result = 'tie';
+                    }
+                    else if(computerMove==='scissors'){
+                        result = 'lose' ;
+                    }
+                    
+                }
+                else if(move==='rock'){
+                    if(computerMove==='rock'){
+                        result = 'tie' ;
+                    } else if(computerMove==='paper'){
+                        result = 'lose';
+                    }
+                    else if(computerMove==='scissors'){
+                        result = 'win' ;
+                    }
+                }
+
+                if(result==='win'){
+                    score.win++ ;
+                }
+                else if(result==="lose"){
+                    score.losses++ ;
+                }
+                else if(result==="tie"){
+                    score.tie++ ;
+                }
+                
+                localStorage.setItem('score' , JSON.stringify(score));
+
+
+                updateScore();
+
+                document.querySelector('.js-result').innerHTML = `You :- ${result}.`;
+
+                document.querySelector('.js-moves').innerHTML 
+                = `You
+            <img class="move-icon"  src="Emojis/${move}-emoji.png">
+
+            <img  class="move-icon"  src="Emojis/${computerMove}-emoji.png">
+            Computer` ;
+                
+
+
+            }
+
+            function updateScore(){
+                document.querySelector('.js-score')
+             .innerHTML = `win : ${score.win} , losses : ${score.losses} , tie : ${score.tie}.`;
+            }
+            
+            function pickCompMove(){
+                let computerMove = '' ;
+                const randomNum = Math.random();
+                if(randomNum>=0 && randomNum < 1/3){
+                    computerMove = 'rock' ;
+                }
+                else if(randomNum>=1/3 && randomNum<2/3){
+                    computerMove = 'paper' ;
+                }
+                else if(randomNum>=2/3 && randomNum<1){
+                    computerMove = 'scissors' ;
+                }
+    
+                return computerMove;
+            }
